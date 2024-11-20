@@ -1,23 +1,17 @@
 "use client";
-
 import { useState } from "react";
 
-const Banner = () => {
+interface Promo {
+	title: string;
+	description: string;
+}
+
+interface BannerCSRProps {
+	promos: Promo[];
+}
+
+const BannerCSR: React.FC<BannerCSRProps> = ({ promos }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const promos = [
-		{
-			title: "Buy 1 Get 1 Free on All Items",
-			description: "Hurry, limited time offer!",
-		},
-		{
-			title: "20% Off on Your First Purchase",
-			description: "Sign up today to get started.",
-		},
-		{
-			title: "Free Shipping on Orders Over $50",
-			description: "Enjoy free shipping, no code required!",
-		},
-	];
 
 	const nextPromo = () => {
 		setCurrentIndex((prevIndex) => (prevIndex + 1) % promos.length);
@@ -62,4 +56,4 @@ const Banner = () => {
 	);
 };
 
-export default Banner;
+export default BannerCSR;
