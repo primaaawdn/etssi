@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <div className="text-center text-sm">
           <div className="space-x-4 mt-2">
-          <a>© 2024 Etsy, Inc.</a>
+          <a>© 2024 Etssi, Inc.</a>
             <a href="#" className="link link-hover">Terms of Use</a>
             <a href="#" className="link link-hover">Privacy</a>
             <a href="#" className="link link-hover">Interest-based ads</a>
