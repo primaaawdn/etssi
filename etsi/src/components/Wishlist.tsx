@@ -13,43 +13,46 @@ export default function Wishlist({ productId }: WishlistProps) {
 	const [error, setError] = useState<string | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	const fetchWishlistStatus = useCallback(async (token: string) => {
-		setInitialLoading(true);
-		try {
-			const response = await fetch(`/api/wishlists`, {
-				method: "GET",
-				headers: {
-					Cookie: `token=${token}`,
-					"Content-Type": "application/json",
-				},
-			});
-
-			if (response.ok) {
-				const data = await response.json();
-				const isInWishlist = data.some((item: WishlistType) => {
-					return String(item.productId) === String(productId);
+	const fetchWishlistStatus = useCallback(
+		async (token: string) => {
+			setInitialLoading(true);
+			try {
+				const response = await fetch(`/api/wishlists`, {
+					method: "GET",
+					headers: {
+						Cookie: `token=${token}`,
+						"Content-Type": "application/json",
+					},
 				});
-				setIsAdded(isInWishlist);
-			} else {
-				console.error(
-					"Failed to fetch wishlist status:",
-					await response.text()
-				);
-				if (response.status === 401) {
-					setError("Unauthorized. Please log in.");
+
+				if (response.ok) {
+					const data = await response.json();
+					const isInWishlist = data.some((item: WishlistType) => {
+						return String(item.productId) === String(productId);
+					});
+					setIsAdded(isInWishlist);
+				} else {
+					console.error(
+						"Failed to fetch wishlist status:",
+						await response.text()
+					);
+					if (response.status === 401) {
+						setError("Unauthorized. Please log in.");
+					}
 				}
+			} catch (error) {
+				console.error(error);
+				if (error instanceof Error) {
+					setError(error.message);
+				} else {
+					setError("An unknown error occurred.");
+				}
+			} finally {
+				setInitialLoading(false);
 			}
-		} catch (error) {
-			console.error(error);
-			if (error instanceof Error) {
-				setError(error.message);
-			} else {
-				setError("An unknown error occurred.");
-			}
-		} finally {
-			setInitialLoading(false);
-		}
-	}, [productId]);
+		},
+		[productId]
+	);
 
 	useEffect(() => {
 		const token = document.cookie
@@ -88,7 +91,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 			});
 
 			if (response.ok) {
-				setIsAdded(!isAdded);
+				await fetchWishlistStatus(token);
 			} else {
 				console.error("Failed to update wishlist:", await response.text());
 				if (response.status === 401) {

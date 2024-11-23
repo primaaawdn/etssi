@@ -18,7 +18,7 @@ const ProductsPage = () => {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `/api/products?page=${reset ? 1 : page}&query=${searchQuery}`
+                    `/api/products?page=${reset ? 1 : page}&q=${searchQuery}`
                 );
                 const data = await response.json();
 
@@ -39,6 +39,7 @@ const ProductsPage = () => {
     );
 
 	useEffect(() => {
+        setPage(1);
         fetchProducts(true);
     }, [searchQuery]);
 

@@ -14,8 +14,8 @@ export async function GET(request: Request) {
 
 		const products = await Product.find({
 			$or: [
-				{ name: { $regex: query, $options: "i" } },
-				{ slug: { $regex: query, $options: "i" } },
+				{ name: { $regex: `^${query}$`, $options: "i" } }, 
+				{ slug: { $regex: `^${query}$`, $options: "i" } },
 			],
 		});
 
@@ -35,3 +35,4 @@ export async function GET(request: Request) {
 		);
 	}
 }
+

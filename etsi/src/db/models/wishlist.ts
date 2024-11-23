@@ -22,6 +22,12 @@ export default class Wishlist {
         return await this.col.find({ userId }).toArray();
     }
 
+    static async findById(id: string) {
+        await this.initialize();
+        if (!this.col) throw new Error("Collection is not initialized");
+        return await this.col.findOne({ _id: id });
+    }
+
     static async addWishlist(data: WishlistType) {
         await this.initialize();
 
@@ -42,16 +48,17 @@ export default class Wishlist {
         return result;
     }
 
-    static async deleteWishlist(data: WishlistType) {
-        await this.initialize();
+    static async deleteWishlist(productId: string) {
+    await this.initialize();
 
-        if (!this.col) {
-            console.error("Collection not initialized");
-            throw new Error("Collection is not initialized");
-        }
-
-        const result = await this.col.deleteOne(data);
-
-        return result;
+    if (!this.col) {
+        console.error("Collection not initialized");
+        throw new Error("Collection is not initialized");
     }
+
+    const result = await this.col.deleteOne({ productId });
+
+    return result;
+}
+
 }

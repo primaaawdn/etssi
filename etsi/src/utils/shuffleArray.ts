@@ -12,3 +12,5 @@ export function shuffleArray(array: any[]) {
     }
     return array;
 }
+
+export const dynamic = 'force-dynamic'
