@@ -1,4 +1,6 @@
-export function shuffleArray(array: any[]) {
+// export const dynamic = 'force-dynamic'
+
+export function shuffleArray<T>(array: T[]): T[] {
     if (array == null) {
         throw new Error("Input is null or undefined");
     }
@@ -12,5 +14,3 @@ export function shuffleArray(array: any[]) {
     }
     return array;
 }
-
-export const dynamic = 'force-dynamic'
