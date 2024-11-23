@@ -82,7 +82,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 				method: isAdded ? "DELETE" : "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
+					Authorization: `${token}`,
 				},
 				body: JSON.stringify({ productId }),
 			});
