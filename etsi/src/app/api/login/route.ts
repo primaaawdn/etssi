@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
 import User from "@/db/models/user";
-import { generateToken } from "@/helpers/jwt";
+import { generateToken } from "@/lib/jwt";
 import { compare } from "bcryptjs";
 
 export async function POST(request: Request) {
@@ -9,6 +8,13 @@ export async function POST(request: Request) {
 		const email = formData.get("email");
 		const password = formData.get("password")?.toString();
 
+		if (!email || !password) {
+            return new Response(JSON.stringify({ error: "Email and password are required" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" },
+            });
+        }
+		
 		await User.initialize();
 
 		const user = await User.findOne({ email });
@@ -29,23 +35,12 @@ export async function POST(request: Request) {
 
 		const token = generateToken({ id: user._id, email: user.email });
 
-		// const Cookies = cookies();
-		// Cookies.set("token", token, {
-		// 	path: "/",
-		// 	httpOnly: true,
-		// 	secure: process.env.NODE_ENV === "production",
-		// 	maxAge: 30 * 24 * 60 * 60,
-		// });
-
 		return new Response(
 			JSON.stringify({ message: "Login successful", token }),
 			{
 				status: 200,
 				headers: {
 					"Content-Type": "application/json",
-					// "Set-Cookie": `token=${token}; Path=/; HttpOnly; Secure=${
-					// 	process.env.NODE_ENV === "production"
-					// }; Max-Age=${30 * 24 * 60 * 60}`,
 				},
 			}
 		);
@@ -56,4 +51,4 @@ export async function POST(request: Request) {
 			headers: { "Content-Type": "application/json" },
 		});
 	}
-};
+}

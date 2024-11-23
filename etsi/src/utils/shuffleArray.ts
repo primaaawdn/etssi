@@ -1,8 +1,14 @@
-
 export function shuffleArray(array: any[]) {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[array[i], array[j]] = [array[j], array[i]];
-	}
-	return array;
+    if (array == null) {
+        throw new Error("Input is null or undefined");
+    }
+    if (!Array.isArray(array)) {
+        throw new Error("Input is not an array");
+    }
+
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
