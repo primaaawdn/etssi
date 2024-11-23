@@ -11,11 +11,12 @@ export default class Product {
 	}
 
 	static async findAll(page = 1, limit = 10, query = {}): Promise<Product[]> {
-		const db = await connectToDB();
-		const collection = db.collection<ProductType>("Products");
-
+		// const db = await connectToDB();
+		// const collection = db.collection<ProductType>("Products");
+		await this.initialize();
+		await connectToDB();
 		const skip = (page - 1) * limit;
-		const products = await collection
+		const products = await this.col
 			.find(query)
 			.skip(skip)
 			.limit(limit)
@@ -37,6 +38,7 @@ export default class Product {
 	}
 
 	static async findById(_id: string) {
+		// await connectToDB();
 		await this.initialize();
 		if (!this.col) throw new Error("Collection is not initialized");
 
@@ -61,6 +63,7 @@ export default class Product {
 	}
 
 	static async create(data: ProductType) {
+		// await connectToDB();
 		await this.initialize();
 
 		if (!this.col) {
@@ -81,6 +84,7 @@ export default class Product {
 	}
 
 	static async update(_id: string, data: ProductType) {
+		// await connectToDB();
 		await this.initialize();
 
 		if (!this.col) {
@@ -103,8 +107,11 @@ export default class Product {
 	}
 
 	static async findBySlug(slug: string) {
-		const db = await connectToDB();
-		const collection = db.collection<ProductType>("Products");
+		// await connectToDB();
+		// const db = await connectToDB();
+		// const collection = db.collection<ProductType>("Products");
+		await this.initialize();
+		const collection = this.col;
 		if (!collection) throw new Error("Collection is not initialized");
 
 		const product = await collection.findOne({
@@ -115,8 +122,11 @@ export default class Product {
 	}
 
 	static async findPaginated(page: number, limit: number) {
-		const db = await connectToDB();
-		const collection = db.collection<ProductType>("Products");
+		// await connectToDB();
+		// const db = await connectToDB();
+		// const collection = db.collection<ProductType>("Products");
+		await this.initialize();
+		const collection = this.col;
 
 		const products = await collection
 			.find()
@@ -140,6 +150,7 @@ export default class Product {
 	}
 
 	static async find(query: object) {
+		// await connectToDB();
 		await this.initialize();
 
 		if (!this.col) throw new Error("Collection is not initialized");

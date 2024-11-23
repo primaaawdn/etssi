@@ -1,3 +1,4 @@
+
 import ProductImage from "@/components/ProductImage";
 import Wishlist from "@/components/Wishlist";
 import Product from "@/db/models/product";
@@ -50,7 +51,7 @@ const ProductDetailPageSSR = async ({ params }: { params: { slug: string } }) =>
 
 		const productData = {
 			...product,
-			_id: product._id,
+			_id: product._id.toString(),
 		};
 
 		return (
@@ -77,9 +78,9 @@ const ProductDetailPageSSR = async ({ params }: { params: { slug: string } }) =>
 							<div>
 								<h6 className="text-gray-800 font-semibold">Tags:</h6>
 								<ul className="flex flex-wrap gap-2 mt-2">
-									{productData.tags.map((tag: string) => (
+									{productData.tags.map((tag: string, index: number) => (
 										<li
-											key={tag}
+											key={`${tag}-${index}`}
 											className="bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-sm">
 											{tag}
 										</li>

@@ -15,19 +15,21 @@ export default async function Home() {
 			},
 		}
 	);
-  if (!response.ok) {return null}
+	if (!response.ok) {
+		return null;
+	}
 
-  const products = await response.json();
+	const products = await response.json();
 
 	return (
 		<main>
 			<Navbar />
 			<Banner />
-			<FeaturedProducts products={products}/>
-			<PopularTags products={products}/>
+			<FeaturedProducts products={products} />
+			<PopularTags products={products} />
 			<Detail />
 			<Footer />
 		</main>
 	);
 }
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";

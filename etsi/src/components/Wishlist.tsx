@@ -17,13 +17,16 @@ export default function Wishlist({ productId }: WishlistProps) {
 		async (token: string) => {
 			setInitialLoading(true);
 			try {
-				const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`, {
-					method: "GET",
-					headers: {
-						Cookie: `token=${token}`,
-						"Content-Type": "application/json",
-					},
-				});
+				const response = await fetch(
+					`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`,
+					{
+						method: "GET",
+						headers: {
+							Cookie: `token=${token}`,
+							"Content-Type": "application/json",
+						},
+					}
+				);
 
 				if (response.ok) {
 					const data = await response.json();
@@ -60,6 +63,10 @@ export default function Wishlist({ productId }: WishlistProps) {
 			.find((row) => row.startsWith("token="))
 			?.split("=")[1];
 
+		// if (!token) {
+		// 	throw new Error("Token not found. Please log in.");
+		// }
+
 		if (token) {
 			setIsLoggedIn(true);
 			fetchWishlistStatus(token);
@@ -77,20 +84,23 @@ export default function Wishlist({ productId }: WishlistProps) {
 				.find((row) => row.startsWith("token="))
 				?.split("=")[1];
 
-			if (!token) {
-				throw new Error("Token not found. Please log in.");
-			}
+			// if (!token) {
+			// 	throw new Error("Token not found. Please log in.");
+			// }
 
-			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`, {
-				method: isAdded ? "DELETE" : "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${token}`,
-				},
-				body: JSON.stringify({ productId }),
-			});
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`,
+				{
+					method: isAdded ? "DELETE" : "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `${token}`,
+					},
+					body: JSON.stringify({ productId }),
+				}
+			);
 
-			if (response.ok) {
+			if (token && response.ok) {
 				await fetchWishlistStatus(token);
 			} else {
 				console.error("Failed to update wishlist:", await response.text());
