@@ -22,3 +22,4 @@ export async function GET(request: Request) {
 		return NextResponse.json({ error: "Server Error" }, { status: 500 });
 	}
 }
+export const dynamic = 'force-dynamic'

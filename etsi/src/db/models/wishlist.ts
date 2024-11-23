@@ -48,7 +48,7 @@ export default class Wishlist {
         return result;
     }
 
-    static async deleteWishlist(productId: string) {
+    static async deleteWishlist(id: string) {
     await this.initialize();
 
     if (!this.col) {
@@ -56,7 +56,7 @@ export default class Wishlist {
         throw new Error("Collection is not initialized");
     }
 
-    const result = await this.col.deleteOne({ productId });
+    const result = await this.col.deleteOne({ _id: id });
 
     return result;
 }

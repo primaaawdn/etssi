@@ -4,21 +4,30 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Banner from "../components/banner";
 import PopularTags from "@/components/PopularTags";
-import { ProductType } from "@/types";
 
-type HomeProps = {
-  products: ProductType[];
-};
+export default async function Home() {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+		{
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+			},
+		}
+	);
+  if (!response.ok) {return null}
 
-export default function Home({ products }: HomeProps) {
-  return (
-    <main>
-      <Navbar />
-      <Banner />
-      <FeaturedProducts products={products}/>
-      <PopularTags products={products}/>
-      <Detail />
-      <Footer />
-    </main>
-  );
+  const products = await response.json();
+
+	return (
+		<main>
+			<Navbar />
+			<Banner />
+			<FeaturedProducts products={products}/>
+			<PopularTags products={products}/>
+			<Detail />
+			<Footer />
+		</main>
+	);
 }
+export const dynamic = 'force-dynamic'

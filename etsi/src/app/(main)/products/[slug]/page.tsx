@@ -77,7 +77,7 @@ const ProductDetailPageSSR = async ({ params }: { params: { slug: string } }) =>
 							<div>
 								<h6 className="text-gray-800 font-semibold">Tags:</h6>
 								<ul className="flex flex-wrap gap-2 mt-2">
-									{productData.tags.map((tag) => (
+									{productData.tags.map((tag: string) => (
 										<li
 											key={tag}
 											className="bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-sm">
@@ -103,3 +103,4 @@ const ProductDetailPageSSR = async ({ params }: { params: { slug: string } }) =>
 };
 
 export default ProductDetailPageSSR;
+export const dynamic = 'force-dynamic'

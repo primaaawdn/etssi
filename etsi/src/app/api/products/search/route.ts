@@ -3,6 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
 	try {
+		// const headersObj = headers();
+		// const query = headersObj.get("x-query");
+
+		// if (!query) {
+		// 	return NextResponse.json(
+		// 		{ error: "Search query is required" },
+		// 		{ status: 400 }
+		// 	);
+		// }
 		const query = new URL(request.url).searchParams.get("q");
 
 		if (!query) {
@@ -14,7 +23,7 @@ export async function GET(request: Request) {
 
 		const products = await Product.find({
 			$or: [
-				{ name: { $regex: `^${query}$`, $options: "i" } }, 
+				{ name: { $regex: `^${query}$`, $options: "i" } },
 				{ slug: { $regex: `^${query}$`, $options: "i" } },
 			],
 		});
@@ -35,4 +44,4 @@ export async function GET(request: Request) {
 		);
 	}
 }
-
+export const dynamic = 'force-dynamic'

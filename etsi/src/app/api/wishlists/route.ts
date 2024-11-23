@@ -109,12 +109,16 @@ export async function DELETE(request: Request) {
 			});
 		}
 
-		const result = await Wishlist.deleteWishlist({ ...body, userId });
-
-		return new Response(JSON.stringify({ success: true, data: result }), {
-			status: 200,
-			headers: { "Content-Type": "application/json" },
-		});
+		if (typeof body._id === 'string') {
+			const result = await Wishlist.deleteWishlist(body._id);
+			return new Response(JSON.stringify({ success: true, data: result }), {
+				status: 200,
+			});
+		} else {
+			return new Response(JSON.stringify({ success: false, error: 'Invalid or missing _id' }), {
+				status: 400,
+			});
+		}
 	} catch (error) {
 		console.error("Error deleting wishlist:", error);
 		return new Response(
@@ -126,3 +130,4 @@ export async function DELETE(request: Request) {
 		);
 	}
 }
+export const dynamic = 'force-dynamic'

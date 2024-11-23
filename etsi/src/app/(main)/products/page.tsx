@@ -18,7 +18,7 @@ const ProductsPage = () => {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `/api/products?page=${reset ? 1 : page}&q=${searchQuery}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/products?page=${reset ? 1 : page}&q=${searchQuery}`
                 );
                 const data = await response.json();
 

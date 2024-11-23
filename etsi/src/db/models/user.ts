@@ -1,13 +1,13 @@
 import { UserType } from "./../../types";
 import { connectToDB } from "../config";
-import { Collection, Filter, ObjectId } from "mongodb";
+import { Collection, Db, Filter, ObjectId } from "mongodb";
 import { hashPassword } from "@/lib/bcrypt";
 
 export default class User {
 	static col: Collection<UserType>;
 
 	static async initialize() {
-		const db = await connectToDB();
+		const db: Db = await connectToDB();
 		this.col = db.collection<UserType>("Users");
 	}
 

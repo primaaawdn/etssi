@@ -17,7 +17,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 		async (token: string) => {
 			setInitialLoading(true);
 			try {
-				const response = await fetch(`/api/wishlists`, {
+				const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`, {
 					method: "GET",
 					headers: {
 						Cookie: `token=${token}`,
@@ -81,7 +81,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 				throw new Error("Token not found. Please log in.");
 			}
 
-			const response = await fetch("/api/wishlists", {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`, {
 				method: isAdded ? "DELETE" : "POST",
 				headers: {
 					"Content-Type": "application/json",

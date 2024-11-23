@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ProductType } from "@/types";
+import { ProductType, WishlistType } from "@/types";
 import { formatPrice } from "@/utils/formatPrice";
 import { formatName } from "@/utils/formatName";
 import Wishlist from "@/components/Wishlist";
@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => (
 		<p className="text-xl font-bold text-gray-800 mb-4">
 			{formatPrice(product.price)}
 		</p>
-		<Wishlist productId={product._id?.toString() || ""} />
+		<Wishlist productId={product._id as unknown as WishlistType} />
 	</div>
 );
 
