@@ -7,7 +7,7 @@ import PopularTags from "@/components/PopularTags";
 
 export default async function Home() {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
 		{
 			method: "GET",
 			headers: {

@@ -1,6 +1,6 @@
 import { MongoClient, Db, ServerApiVersion } from "mongodb";
 
-const uri = "mongodb+srv://primaaawdn:G34O3Qy4ksM5vu1l@cluster0.bvelp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI;
 
 if (!uri) {
 	throw new Error("MONGODB_URI is not defined in environment variables.");

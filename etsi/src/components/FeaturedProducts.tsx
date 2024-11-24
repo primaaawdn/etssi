@@ -10,7 +10,7 @@ interface FeaturedProductsProps {
 }
 
 const FeaturedProducts: React.FC<FeaturedProductsProps> = async () => {
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+	const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
 	if (!response.ok) throw new Error("Failed to fetch products");
 
 	let products = await response.json();

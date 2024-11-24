@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
 
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/login`,
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
 				{
 					method: "POST",
                     // headers: { "Content-Type": "multipart/form-data" },

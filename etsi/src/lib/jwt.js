@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+// const JWT_SECRET = "your_secret_here"; 
 const JWT_SECRET = process.env.JWT_SECRET; 
 
 if (!JWT_SECRET) {

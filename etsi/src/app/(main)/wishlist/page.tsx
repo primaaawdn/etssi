@@ -11,7 +11,7 @@ const WishlistPage = () => {
 
 	const fetchWishlist = async () => {
 		try {
-			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlists`, {
 				method: "GET",
 			});
 

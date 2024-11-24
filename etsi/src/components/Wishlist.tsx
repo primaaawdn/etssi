@@ -18,7 +18,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 			setInitialLoading(true);
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`,
+					`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlists`,
 					{
 						method: "GET",
 						headers: {
@@ -89,7 +89,7 @@ export default function Wishlist({ productId }: WishlistProps) {
 			// }
 
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/wishlists`,
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlists`,
 				{
 					method: isAdded ? "DELETE" : "POST",
 					headers: {

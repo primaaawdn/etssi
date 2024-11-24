@@ -13,7 +13,7 @@ const PopularTags: React.FC<Props> = () => {
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+			const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
 			if (!response.ok) {
 				setProducts([]);
 				return;
