@@ -11,22 +11,28 @@ const ProductsPage = () => {
 	const [hasMore, setHasMore] = useState<boolean>(true);
 	const [page, setPage] = useState<number>(2);
 	const [searchQuery, setSearchQuery] = useState<string>("");
-	// console.log(products);
+	console.log(products);
 
 	const fetchProducts = useCallback(
         async (reset = false) => {
             try {
                 setLoading(true);
-                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
                 const response = await fetch(
-                    `${baseUrl}/api/products?page=${reset ? 1 : page}&q=${searchQuery}`
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products?page=${reset ? 1 : page}&q=${searchQuery}`
                 );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch products");
+                }
+                
                 const data = await response.json();
+                console.log("Data:", data.products);
+                
 
                 if (reset) {
                     setProducts(data);
                 } else {
-                    setProducts((prevProducts) => [...prevProducts, ...data]);
+                    setProducts((prevProducts) => [...prevProducts, ...data.products]);
                 }
 
                 setHasMore(data.length > 0);
